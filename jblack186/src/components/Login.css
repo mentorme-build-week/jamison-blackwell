@@ -1,7 +1,40 @@
-.member_sign_in {
+.close_panel {
     display: none;
 }
 
+
+.is_expanded_sign_in {
+    display: block;
+}
+
+.crea {
+    display: block;
+}
+
+.login {
+    display: flex;
+    justify-content: space-evenly;
+    width: 400px;
+    height:  500px;
+    border: 1px black solid;
+
+    
+}
+
+.is_expanded_sign_up {
+    display: block;
+}
+
+.is_expanded_sign_in {
+    position: fixed;
+}
+
 .create_account {
-    display: none;
+    display: flex;
+    flex-direction: column;
+}
+
+.sign_in {
+    display: flex;
+    flex-direction: column;
 }

@@ -5,43 +5,65 @@ export default class Login extends React.Component {
     constructor(){
         super()
         this.state = {
+            isExpandedSignIn: false,
+            isExpandedSignUp: false
+
+            
         }        
+
     
     }
 signInToggle = (e) => {
-console.log('i work')
+    e.preventDefault();
+    this.setState({
+        isExpandedSignIn: !this.state.isExpandedSignIn
+
+    })
+
 }
 
+signUpToggle = (e) => {
+    e.preventDefault();
+    this.setState({
+        isExpandedSignUp: !this.state.isExpandedSignUp
+        
+    })
 
     
-
+}
 
     render(){
+        const { isExpandedSignIn } = this.state;
+        const { isExpandedSignUp } = this.state;
         return(
-            <div className='button'>
-                <div>
-                    <h3>Already a member</h3>
-                    <button className='sign_in' onClick={this.signInToggle}>Sign In</button>
-                </div>
-                <div>
-                    <form className='member_sign_in'>            
+            <div className='login'>
+                
+                <div className={` ${isExpandedSignUp ? 'close_panel' : 'sign_in'}`}>
+                <h3 className={`${isExpandedSignIn ? 'close_panel': 'member'}`}>Already a member</h3>
+                    <button className='sign_in' onClick={(e) => this.signInToggle(e)}>Sign In</button>
+
+                    <form className={` ${isExpandedSignIn ? 'sign_in' : 'close_panel'}`}> 
+                        <h4>Enter Username and Password</h4>           
                         <input placeholder='username' />
                         <input placeholder='password' />
                         <button>Sign In</button>
                     </form>
                 </div>
-                <div>
-                    <h3>Like what you see Sign Up</h3>
-                    <button className='sign_up'>Sign Up</button>
-                 </div>
+                
+                
                 <form>  
                    
-                <div className='create_account'>
-                    <h4>Create Account</h4>
-                    <input placeholder='name'/>
-                    <input placeholder='email'/>
-                    <input placeholder='password'/>
-                    <button>Sign Up</button>
+                <div className={` ${isExpandedSignIn ? 'close_panel' : 'create_account'}`}>
+                <h3>Create Account</h3>
+                    <button className='sign_up' onClick={(e) => this.signUpToggle(e)}>Sign Up</button>
+
+                    <form  className={` ${isExpandedSignUp ? 'create_account' : 'close_panel'}`}>
+                        <h4>Create Account</h4>
+                        <input placeholder='name'/>
+                        <input placeholder='email'/>
+                        <input placeholder='password'/>
+                        <button>Join</button>
+                    </form>
                 </div>    
                 </form>  
             </div>
