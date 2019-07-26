@@ -7,7 +7,7 @@ export default class Login extends React.Component {
         this.state = {
             isExpandedSignIn: false,
             isExpandedSignUp: false,
-            isExpandedSign: false
+           
             
         }        
 
@@ -33,15 +33,7 @@ export default class Login extends React.Component {
         
     }
 
-    signToggle = (e) => {
-        e.preventDefault();
-        this.setState({
-            isExpandedSign: !this.state.isExpandedSign,
-            
-        })
-
-        
-    }
+    
 
     render(){
         const { isExpandedSignIn } = this.state;
