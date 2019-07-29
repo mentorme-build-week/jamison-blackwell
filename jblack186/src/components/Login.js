@@ -1,5 +1,6 @@
 import './Login.css'
 import React, { Component } from 'react'
+import dummyData from '../dummyData';
 
 export default class Login extends React.Component {
     constructor(){
@@ -7,12 +8,27 @@ export default class Login extends React.Component {
         this.state = {
             isExpandedSignIn: false,
             isExpandedSignUp: false,
+            username: '',
+            password: '',
+            users: dummyData,
+            loggedInStatus: 'Not_Logged_In'
            
             
         }        
-
-    
     }
+
+
+    changeHandler = (event) => {
+        event.preventDefault();
+        this.setState({[event.target.name] : event.target.value})
+    }
+
+        checkLoggedInStatus = (e) => {
+            e.preventDefault();
+            dummyData.includes(this.state.username) ? console.log('yes') : console.log('no')
+        }
+    
+    
     signInToggle = (e) => {
         e.preventDefault();
         this.setState({
@@ -36,6 +52,7 @@ export default class Login extends React.Component {
     
 
     render(){
+        console.log(this.state.users)
         const { isExpandedSignIn } = this.state;
         const { isExpandedSignUp } = this.state;
         return(
@@ -48,10 +65,10 @@ export default class Login extends React.Component {
                     <button className={`${isExpandedSignIn ? 'close_panel' : 'button'}`} onClick={(e) => this.signInToggle(e)}>Sign In</button>
                     <button className={`${isExpandedSignIn ? 'button' : 'close_panel'}`} onClick={(e) => this.signUpToggle(e)}>Sign Up</button>
 
-                    <form className={` ${isExpandedSignIn ? 'sign_in' : 'close_panel'}`}> 
+                    <form onSubmit={this.checkLoggedInStatus} className={` ${isExpandedSignIn ? 'sign_in' : 'close_panel'}`}> 
                         <h4>Enter Username and Password</h4>           
-                        <input placeholder='username' />
-                        <input placeholder='password' />
+                        <input value={this.state.username} onChange={this.changeHandler} name='username' placeholder='username' />
+                        <input value={this.state.password} onChange={this.changeHandler} name='password' placeholder='password' />
                         <button>Sign In</button>
                     </form>
                 </div>

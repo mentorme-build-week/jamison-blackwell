@@ -1,11 +1,6 @@
 import React from 'react'
+import dummyData from '../../dummyData';
 
-export default function DisplayComments(props) {
+export default function DisplayComments() {
     
-    return (
-        <div>
-
-        </div>
-
-    )
 }

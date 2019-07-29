@@ -1,22 +1,41 @@
 import React, { Component } from 'react'
 import dummyData from '../../dummyData'
-import DisplayComments from './DisplayComments'
-
+import displayComments from './displayComments'
+import axios from 'axios'
+    
 export default class SearchBar extends Component{
     constructor(props){
         super(props)
         this.state= {
-            
+           filter: '',
             query: '',
             results: {},
             loading: false,
-            message: ''
-        }
+            users: this.props.users,
+            db: dummyData
+           
     }
+
+ }
+
+
+//  getUsers = (e) => {
+//      e.preventDefault();
+//     const apiBaseUrl = "https://mentorme.free.beeceptor.com"
+//     const endpoint = "/users";
+//     axios.get(`https://mentorme.free.beeceptor.com/users`) 
+//     .then(response => {
+//         const users = response.data.data
+       
+//     })
+
+//     this.cancel = '';
+// }  
+//Tried messing around with some fake api 
 
 changeHandler = (event) => {
     event.preventDefault();
-    this.setState({[event.target.name] : event.target.value })
+    this.setState({[event.target.name] : event.target.value, loading: true, message: '' })
 }
 
 submitHandler = (event) => {
@@ -29,28 +48,36 @@ submitHandler = (event) => {
         }) 
 }
 
-    render(){
-        console.log(dummyData)
-     
+
+updateFilter = (event => {
+    this.setState({ filter: event.target.value})
+})
+
+    render() {
+        console.log(this.props)
+const users = this.state.users.filter(user => user.username.includes(this.state.filter))
+      console.log(this.state.query)
       
-       const { value } = this.state;
-       console.log(this.state.value)
         return(
             <div>
-                <h2>Live Search</h2>
                
-                <form onSubmit={this.submitHandler}>
-                <label htmlFor='search_input'>
+               
+                <form onSubmit={this.getUsers}>
+                <label htmlFor='search'>Search User: </label>
                     <input type='text'
-                    placeholder='Search...' 
+                    placeholder='' 
                     id='search_input'
-                    value={ value }
-                     onChange={this.changeHandler} 
+                    value={this.state.filter}
+                     onChange={this.updateFilter} 
                      name='query' />
-                </label>
-                    <button type='submit'>Search</button>
+               
+                    <button type='submit'>Find</button>
                 </form>
-                <DisplayComments />
+                {users.map(user => <div>
+                    <h4>{user.username}</h4><p>{user.text}</p>
+                    </div>)}
+            
+                
             </div>
         )
     }
