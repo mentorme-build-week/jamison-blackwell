@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import dummyData from '../../dummyData'
-import displayComments from './displayComments'
+import DisplayComments from './DisplayComments'
 import axios from 'axios'
     
 export default class SearchBar extends Component{
@@ -54,9 +54,9 @@ updateFilter = (event => {
 })
 
     render() {
-        console.log(this.props)
+   
 const users = this.state.users.filter(user => user.username.includes(this.state.filter))
-      console.log(this.state.query)
+      
       
         return(
             <div>

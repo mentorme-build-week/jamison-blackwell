@@ -1,6 +1,7 @@
 import './Login.css'
 import React, { Component } from 'react'
 import dummyData from '../dummyData';
+import axios from 'axios'
 
 export default class Login extends React.Component {
     constructor(){
@@ -17,6 +18,25 @@ export default class Login extends React.Component {
         }        
     }
 
+    componentDidMount(){
+       
+        axios 
+            .post("https://mentor-me-app-be.herokuapp.com/users", {
+                user_id: "1",
+                content: 'test',
+                topic: 'testing',
+                imageUrl: 'pic'
+})
+            .then(response => {
+                console.log(response)
+                const token = response.data.token;
+                localStorage.setItem('token', token);
+            })
+            .catch(error => {
+                console.log(error)
+            })
+
+    }
 
     changeHandler = (event) => {
         event.preventDefault();
@@ -52,7 +72,7 @@ export default class Login extends React.Component {
     
 
     render(){
-        console.log(this.state.users)
+        
         const { isExpandedSignIn } = this.state;
         const { isExpandedSignUp } = this.state;
         return(
@@ -89,6 +109,7 @@ export default class Login extends React.Component {
                         <input placeholder='password'/>
                         <button>Join</button>
                     </form>
+                   
                 </div>    
                 </form>  
             </div>
