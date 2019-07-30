@@ -18,27 +18,6 @@ export default class Login extends React.Component {
         }        
     }
 
-<<<<<<< HEAD
-    componentDidMount(){
-       
-        axios 
-            .post("https://mentor-me-app-be.herokuapp.com/users", {
-                user_id: "1",
-                content: 'test',
-                topic: 'testing',
-                imageUrl: 'pic'
-})
-            .then(response => {
-                console.log(response)
-                const token = response.data.token;
-                localStorage.setItem('token', token);
-            })
-            .catch(error => {
-                console.log(error)
-            })
-
-    }
-=======
 componentDidMount(){
     axios
     .post('https://mentor-me-app-be.herokuapp.com//api/questions', {
@@ -52,7 +31,6 @@ componentDidMount(){
     })
 }
 
->>>>>>> 44add59b19216df3b5b15b7018b5cc417bc4ae8f
 
     changeHandler = (event) => {
         event.preventDefault();
