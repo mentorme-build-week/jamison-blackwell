@@ -5,27 +5,39 @@ export default class QuestionFeed extends React.Component{
     constructor(props) {
         super(props)
         this.state= {
-            value: ''
+            value: '',
+            user_id: 5,
+            content: '',
+            topic: '',
+            imageUrl: '' 
 
         }
     } 
-    
-comments = () => {
+ componentDidMount(){
+     axios
+        .get('https://mentor-me-app-be.herokuapp.com//api/questions')
+        .then(res => {
+            console.log(res)
+        })
+ }   
+addComments = (e) => {
+    e.preventDefault();
+    const user = {
+        subject:2,
+    email: "blackwellj@gmail.com",
+    roles:"student"
+    }
     axios
-    .post('https://mentor-me-app-be.herokuapp.com//api/questions', {
-        user_id: 1,
-        content:'test',
-        topic: 'testing',
-        imageUrl: 'checking'
-    })
-    .then(res => {
-        console.log(res.config.data)
+    .post('https://mentor-me-app-be.herokuapp.com/api/questions', this.state)
+    .then(response => {
+        console.log(response)
+        
     })
 }
     
 onChangeHandler = (event) => {
     event.preventDefault();
-    this.setState({[event.target.name] : event.target.value })
+    this.setState({value : event.target.value })
 }
 
     render(){
@@ -33,9 +45,9 @@ onChangeHandler = (event) => {
         return(
             <div>
                 
-                <form>
+                <form onSubmit={this.addComments}>
                     <input placeholder="Describe Issue" value={this.state.value} name='value' onChange={this.onChangeHandler} />
-                    <button>Post</button>
+                    <button type='submit'>Post</button>
                 </form>
             </div>
         )

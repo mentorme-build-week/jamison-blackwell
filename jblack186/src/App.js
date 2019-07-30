@@ -20,7 +20,7 @@ class App extends React.Component {
   }
 
   selectedChat = (chatIndex) => {
-    console.log('selected a chat')
+    
   }
 
   // newChatBtnClicked = () => {
@@ -39,7 +39,7 @@ class App extends React.Component {
   
 
   render(){
-    console.log(this.props)
+   
   return (
     
     <div className="App">

@@ -66,7 +66,7 @@ componentDidMount(){
     
 
     render(){
-        console.log(this.state.users)
+        
         const { isExpandedSignIn } = this.state;
         const { isExpandedSignUp } = this.state;
         return(
@@ -103,6 +103,7 @@ componentDidMount(){
                         <input placeholder='password'/>
                         <button>Join</button>
                     </form>
+                   
                 </div>    
                 </form>  
             </div>
