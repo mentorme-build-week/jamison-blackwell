@@ -1,6 +1,5 @@
 import React, { Component } from 'react'
 import dummyData from '../../dummyData'
-import displayComments from './displayComments'
 import axios from 'axios'
     
 export default class SearchBar extends Component{
