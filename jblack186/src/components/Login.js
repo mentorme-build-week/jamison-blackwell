@@ -18,6 +18,7 @@ export default class Login extends React.Component {
         }        
     }
 
+<<<<<<< HEAD
     componentDidMount(){
        
         axios 
@@ -37,6 +38,21 @@ export default class Login extends React.Component {
             })
 
     }
+=======
+componentDidMount(){
+    axios
+    .post('https://mentor-me-app-be.herokuapp.com//api/questions', {
+        user_id: 1,
+        content:'test',
+        topic: 'testing',
+        imageUrl: 'checking'
+    })
+    .then(res => {
+        console.log(res.config.data)
+    })
+}
+
+>>>>>>> 44add59b19216df3b5b15b7018b5cc417bc4ae8f
 
     changeHandler = (event) => {
         event.preventDefault();
