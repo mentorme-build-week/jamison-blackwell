@@ -1,6 +1,7 @@
 import './Login.css'
 import React, { Component } from 'react'
 import dummyData from '../dummyData';
+import axios from 'axios'
 
 export default class Login extends React.Component {
     constructor(){
@@ -16,6 +17,19 @@ export default class Login extends React.Component {
             
         }        
     }
+
+componentDidMount(){
+    axios
+    .post('https://mentor-me-app-be.herokuapp.com//api/questions', {
+        user_id: 1,
+        content:'test',
+        topic: 'testing',
+        imageUrl: 'checking'
+    })
+    .then(res => {
+        console.log(res.config.data)
+    })
+}
 
 
     changeHandler = (event) => {

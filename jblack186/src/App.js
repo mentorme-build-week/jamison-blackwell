@@ -8,21 +8,14 @@ import MessageList from './components/Messenger/MessengerList'
 import Messenger from './components/Messenger/Messenger'
 
 import { Route } from 'react-router-dom';
+import QuestionFeed from './components/Messenger/QuestionFeed';
 
 
 class App extends React.Component {
   constructor(){
     super()
     this.state= {
-      filter: '',
-       query: '',
-       results: {},
-       loading: false,
-       users: dummyData,
-      selectedChat: null,
-      newChatForm: false,
-      email: null,
-      chats: []
+     
 }
   }
 
@@ -51,16 +44,10 @@ class App extends React.Component {
     
     <div className="App">
     
-      <Route path='/messenger' exact render={(props) => {
-        return (<Messenger  users={this.state.users} history={props.history}
-        newChatBtnFn={this.newChatBtnClicked}
-        selectChatFn={this.selectChat}
-        chats={this.state.chats}
-        userEmail={this.state.email}
-        selectedChatIndex={this.state.selectChat}
-        />)
-      }}/>
-      <Login />
+
+      <Route path='/questions' exact render={(props) => {
+        return (<QuestionFeed history={props.history} />)
+      }} />
      
      
     </div>
