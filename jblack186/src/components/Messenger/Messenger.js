@@ -30,11 +30,11 @@ message = (id) => {
     })
 }
     newChat = () => {
-        console.log('i work')
+       
     }
 
     selectChat = (index) => {
-        console.log('selectChat', index)
+      
     }
 
     render() {
