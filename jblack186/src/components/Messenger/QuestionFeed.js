@@ -1,42 +1,92 @@
 import React from 'react'
-import axios from 'axios';
+import axios from 'axios'
+import { Link } from 'react-router-dom'
 
 export default class QuestionFeed extends React.Component{
-    constructor(props) {
+constructor(props) {
         super(props)
         this.state= {
-            value: ''
+           questions: this.props.questions,
+           value: '',
+            items: ''
 
         }
     } 
     
-comments = () => {
-    axios
-    .post('https://mentor-me-app-be.herokuapp.com//api/questions', {
-        user_id: 1,
-        content:'test',
-        topic: 'testing',
-        imageUrl: 'checking'
-    })
-    .then(res => {
-        console.log(res.config.data)
-    })
-}
-    
-onChangeHandler = (event) => {
+   onChangeHandler = (event) => {
+       event.preventDefault();
+       this.setState({value : event.target.value})
+   }
+
+   inChangeHandler = (event) => {
     event.preventDefault();
-    this.setState({[event.target.name] : event.target.value })
+    this.setState({items : event.target.value})
 }
 
+
+
+   addComments = (event) => {
+       event.preventDefault();
+       
+   }
+   componentDidMount() {
+    // e.preventDefault();
+    const token = localStorage.getItem("token");
+    axios
+      .get("https://mentor-me-app-be.herokuapp.com/api/questions", {
+      headers: {
+          Authorization: token
+      }
+      })
+    
+      .then(response => {
+          console.log(response.data);
+          this.setState({questions: [...this.state.questions, ...response.data ]})
+    
+      })
+    }
+
     render(){
-        console.log(this.props)
+        console.log(this.state.value)
+        console.log("yo", this.state.items)
+        const question = this.state.questions.filter(question => question.content.includes(this.state.value))
+        const topic = this.state.questions.filter(question => question.topic.includes(this.state.items)) 
         return(
             <div>
-                
-                <form>
-                    <input placeholder="Describe Issue" value={this.state.value} name='value' onChange={this.onChangeHandler} />
-                    <button>Post</button>
-                </form>
+                <p>{this.state.items}</p>
+                 <input placeholder="Search" value={this.state.value} name='value' onChange={this.onChangeHandler}/>
+                 <form>
+                    <label htmlFor="topic">Select Topic:  </label>
+                    <select className="topic" value={this.state.items} onChange={this.inChangeHandler}>
+                    <option value=""> Pick </option>
+                    <option value="Photography"  name='Photography'> Photography </option>
+                    <option value="Programming"  name="Programming"> Programming </option>
+                    <option value="Small Business"  name="Small Business"> Small Bussiness </option>
+                    </select>
+                    <button type="submit">Find</button>
+                 </form>
+{ this.state.value.length > 0 ? question.map(question => {
+    return <Link to={`/messenger/${question.id}`}>
+    <div key={question}>
+    <p>{question.content}</p>
+    </div>
+    </Link>
+ })
+ : <p>Search for a question</p>  
+                   }
+                   
+         { this.state.items.length > 0  ?  topic.map(question => {
+         return <Link to={`/messenger/${question.id}`}>
+         <div key={question}>
+         <p>{question.content}</p> 
+         </div>
+           </Link> })
+                    :        
+         
+                    <p>Searching...</p>
+                                
+                    
+}
             </div>
         )
     }
