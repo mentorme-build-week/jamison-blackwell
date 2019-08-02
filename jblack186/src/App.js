@@ -6,6 +6,7 @@ import SearchBar from './components/Messenger/SearchBar';
 import dummyData from './dummyData'
 import MessageList from './components/Messenger/MessengerList'
 import Messenger from './components/Messenger/Messenger'
+import axios from 'axios';
 
 import { Route } from 'react-router-dom';
 import QuestionFeed from './components/Messenger/QuestionFeed';
@@ -14,46 +15,79 @@ import QuestionFeed from './components/Messenger/QuestionFeed';
 class App extends React.Component {
   constructor(){
     super()
-    this.state= {
+    this.state = {
+      questions: []
      
+      
+  }        
 }
+
+registerUser = (e) => {
+e.preventDefault();
+axios
+.post('https://mentor-me-app-be.herokuapp.com/api/users/register', {
+  "firstname": "Jagfmison",
+  "lastname": "Blacgkfwell",
+  "email": "blackwellj1040@gmail.com",
+  "password": "beendoingthisforamin"
+})
+.then(res => {
+  console.log(res)
+})
+}
+
+login = (e) => {
+e.preventDefault();
+axios 
+.post("https://mentor-me-app-be.herokuapp.com/api/users/login", {
+  email: "blackwellj1040@gmail.com",
+  password: "beendoingthisforamin"
+
+})
+.then(response  => {
+  console.log(response);
+  const token = response.data.token;
+  localStorage.setItem('token', token);
+})
+}
+
+componentDidMount() {
+// e.preventDefault();
+const token = localStorage.getItem("token");
+axios
+  .get("https://mentor-me-app-be.herokuapp.com/api/questions", {
+  headers: {
+      Authorization: token
   }
+  })
 
-  selectedChat = (chatIndex) => {
-    
-  }
+  .then(response => {
+      console.log(response.data);
+      this.setState({questions: [...this.state.questions, ...response.data ]})
 
-  // newChatBtnClicked = () => {
-  //   console.log('new chat butn clicked', chatIndex)
-  //   this.setState({ newChatForm: true, selectChat: null })
+  })
+}
 
-  //   this.componentDidMount = () => {
-  //     if(!user)
-  //       this.props.history.push('/login');
-  //         else {
-  //           //create new chat 
-  //         }
-  //   }
-  // }
+render(){
+console.log("WE IN THE STATE:", this.state.questions)
+  return( 
+              <div>
 
-  
-
-  render(){
-   
-  return (
-    
-    <div className="App">
-    
-
-      <Route path='/questions' exact render={(props) => {
-        return (<QuestionFeed history={props.history} />)
+<button onClick={this.registerUser}>Register</button>
+          <button onClick={this.login}>Login</button>
+          <Route exact path='/messenger/:id' exact render={(props) => {
+            return (<Messenger {...props} questions={this.state.questions} />)
+          }} />
+          <Route exact path='/questions' exact render={(props) => {
+        return (<QuestionFeed {...props} questions={this.state.questions} />)
       }} />
      
      
-    </div>
- 
+   
+      </div>
   )
-  }
+}
+
 }
 
 export default App;
