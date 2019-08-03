@@ -87,7 +87,9 @@ constructor(props) {
                                 
                     
 }
+<Link to={'/post'}><button>Post a qustion</button></Link>
             </div>
+            
         )
     }
 }    
